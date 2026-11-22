@@ -155,3 +155,71 @@ AssertionError: expected [ 1, 2, 3 ] to deeply equal [ 1, 2 ]
       Tests  1 failed | 7 passed (8)
    Start at  20:36:28
    Duration  279ms (transform 53%, import 22%, tests 18%, worker 7%)
+(г) U+200B временно не распознаётся как пустое название
+
+> test
+> vitest run
+
+
+ RUN  v5.0.5 /home/fullmaster/Документы/Main/agentic-class/homework/start
+
+ ❯ src/tasks.test.ts (10 tests | 2 failed) 21ms
+   ❯ пустые названия (8)
+     × не переименовывает задачу в пустое название ("​") 11ms
+     × не создаёт задачу с названием из U+200B 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/tasks.test.ts > пустые названия > не переименовывает задачу в пустое название ("​")
+AssertionError: expected [ { id: 1, title: '​', done: false } ] to deeply equal [ { id: 1, …(2) } ]
+
+- Expected
++ Received
+
+  [
+    {
+      "done": false,
+      "id": 1,
+-     "title": "Исходное название",
++     "title": "​",
+    },
+  ]
+
+ ❯ src/tasks.test.ts:23:49
+     21|             const tasks = [{ id: 1, title: "Исходное название", done: …
+     22|
+     23|             expect(renameTask(tasks, 1, title)).toEqual(tasks)
+       |                                                 ^
+     24|         },
+     25|     )
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/tasks.test.ts > пустые названия > не создаёт задачу с названием из U+200B
+AssertionError: expected { id: 10, title: '​', done: false } to be undefined
+
+- Expected:
+undefined
+
++ Received:
+{
+  "done": false,
+  "id": 10,
+  "title": "​",
+}
+
+ ❯ src/tasks.test.ts:42:42
+     40|
+     41|     it("не создаёт задачу с названием из U+200B", () => {
+     42|         expect(createTask(10, "\u200B")).toBeUndefined()
+       |                                          ^
+     43|     })
+     44| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 8 passed (10)
+   Start at  19:00:42
+   Duration  292ms (transform 51%, tests 23%, import 20%, worker 6%)
